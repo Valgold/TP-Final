@@ -1,4 +1,4 @@
-"""from pynput import keyboard as kb
+﻿"""from pynput import keyboard as kb
 from os import system, name
 def clear():   
   
@@ -57,4 +57,4 @@ keyboard.release('A')
 with keyboard.pressed(Key.shift):
     keyboard.press('a')
     keyboard.release('a')
-#testbranch
+#testbranch11
