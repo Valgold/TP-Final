@@ -86,7 +86,8 @@ ________________________________________________________________________________
                 reingreso=int(input("No cuenta con saldo suficiente, desea reigresar el monto?\n1. si\n2. no\n"))
             else:
                 reingreso=2
-    nuevosaldo=(sP,sS)
+    operacion = (-1)*operacion
+    nuevosaldo=(sP,sS,operacion,cuenta)
     return nuevosaldo
 
 
@@ -107,11 +108,13 @@ def consultas(div,sP,sS,hP,hS):
             monedaR="($oles)"
     else:
         if div<2:
-            print(f'sus ultimos movimientos en su cuenta en pesos son {hP}')
+            print(f'sus ultimos movimientos en su cuenta en pesos son:')
+            imprimir_historial(hP)
             reporte=hP
             monedaR="(AR$)"
         else:
-            print(f'sus ultimos movimientos en su cuenta en soles son:{hS}')
+            print(f'sus ultimos movimientos en su cuenta en soles son:')
+            imprimir_historial(hS)
             reporte=hS
             monedaR="($oles)"
     imprimir=int(input("desea imprimir un reporte?\n1. si\n2. no\n"))
@@ -182,17 +185,18 @@ def transferencias(div,cuentaT,sS,sP):
     monto=float(input("ingrese el monto a retirar: "))
     valid=montoValido(div,cuenta,sS,sP,monto)
     if valid:
-        sP,sS=restarCuenta(div,cuenta,sS,sP,monto)
+        sP,sS,_,_=restarCuenta(div,cuenta,sS,sP,monto)
         if destino==cuentaT: 
             print("transaccion realizada con exito")
         else: 
             print("transaccion fallida, su dinero sera reintegrado pasados 3 dias habiles")
     else: 
         print("no cuenta con fondos suficientes en la cuenta seleccionada, vuela a intentarlo")
-    nuevosaldo = (sP,sS)
+    monto=(-1)*monto
+    nuevosaldo = (sP,sS,monto,cuenta)
     return nuevosaldo
 
-def montoValido(div,cuenta,sS,sP,op):
+def montoValido(div,cuenta,sS,sP,op,):
     """
     montovalido(divisa, numero de cuenta, saldo cuenta 1, saldo cuenta 2, operacion)
     Verifica que la cuenta espeficicada tenga saldo suficiente dependiendo de la operacion:
@@ -230,5 +234,29 @@ def restarCuenta(div,cuenta,sS,sP,op):
             sS=(sS-op)
             reporte = sS
             monedaR = "($oles)"
+    
     nuevosaldo=(sP,sS,monedaR,reporte)
     return nuevosaldo
+
+def actualizar_listas(historialP,historialS,divisa,valor_nuevo):
+    transicion = []
+    if divisa < 2:
+        for i in range(len(historialP)-1):
+            transicion = transicion + [historialP[i+1]]
+        transicion = transicion + [valor_nuevo]
+        historialP = transicion
+    else:
+        for i in range(len(historialS)-1):
+            transicion = transicion + [historialS[i+1]]
+        transicion = transicion + [valor_nuevo]
+        historialS = transicion
+    return (historialP,historialS)
+
+def imprimir_historial(lista):
+    x=0
+    while x<len(lista):
+        print(lista[x])
+        x +=1
+        
+            
+
