@@ -61,11 +61,35 @@ def retiros(div,sS,sP,psw):
         if valido:
             p=int(input("Ingrese su clave de acceso nuevamente: "))
             if p==psw:
-                sP,sS=restarCuenta(div,cuenta,sS,sP,operacion)
+                sP,sS,monedaR,reporte = restarCuenta(div,cuenta,sS,sP,operacion)
                 imprimir=int(input("Desea imprimir un voucher?\n1. si\n2. no\n"))
                 if imprimir<2:
                     print("Su voucher se esta imprimiendo...")
-                    print("""———————————No recivo?———————————""")
+                    print(f"""·······················································································
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+---------------------------------------------------------------------------------------
+Fecha: 22/06/22                  BancoFraNiVaEstacion 6                  Hora: 18:12:37
+                                      !Retiro!
+                            AV. ZARAZA ZAZA 869, BARILOCHE
+                                    DNI:-12345678-
+
+AP: A00000000000012345678                                               Debit FraNiVA
+NRO.COM 9812345678                                                      TERM: 129321843
+NRO.LOTE: 4449                                                          CUPON: 12423
+************5678 *                                                                **/**
+02213P786
+Cuenta ************5678{monedaR}
+Saldo Retirado = $  {operacion}
+Saldo Actual = $    {reporte}
+
+                                    (00) APROBADO
+                                    Copia Cliente
+---------------------------------------------------------------------------------------
+_______________________________________________________________________________________
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+·······················································································
+                    
+                    """)
             else:
                 print("Contraseña invalida, cancelando transaccion...")
             reingreso=2
@@ -75,7 +99,7 @@ def retiros(div,sS,sP,psw):
                 reingreso=int(input("No cuenta con saldo suficiente, desea reigresar el monto?\n1. si\n2. no\n"))
             else:
                 reingreso=2
-    nuevosaldo=[sP,sS]
+    nuevosaldo=(sP,sS)
     return nuevosaldo
 
 
@@ -89,34 +113,82 @@ def consultas(div,sP,sS,hP,hS):
         if div<2:
             print(f'su saldo en pesos es de ${sP}')
             reporte=sP
+            monedaR="(AR$)"
         else:
             print(f'su saldo en soles es de ${sS}')
             reporte=sS
+            monedaR="($oles)"
     else:
         if div<2:
             print(f'sus ultimos movimientos en su cuenta en pesos son {hP}')
-            reporte=sP
+            reporte=hP
+            monedaR="(AR$)"
         else:
             print(f'sus ultimos movimientos en su cuenta en soles son:{hS}')
-            reporte=sS
+            reporte=hS
+            monedaR="($oles)"
     imprimir=int(input("desea imprimir un reporte?\n1. si\n2. no\n"))
     if imprimir<2:
         print("su reporte se esta imprimiendo...")
-        print("""———————————No recivo?———————————
-⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
-⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
-⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀
-⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀
-⠀⠀⠀⠈⠊⠆⡃⠕⢕⢇⢇⢇⢇⢇⢏⢎⢎⢆⢄⠀⢑⣽⣿⢝⠲⠉⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⡿⠂⠠⠀⡇⢇⠕⢈⣀⠀⠁⠡⠣⡣⡫⣂⣿⠯⢪⠰⠂⠀⠀⠀⠀
-⠀⠀⠀⠀⡦⡙⡂⢀⢤⢣⠣⡈⣾⡃⠠⠄⠀⡄⢱⣌⣶⢏⢊⠂⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢝⡲⣜⡮⡏⢎⢌⢂⠙⠢⠐⢀⢘⢵⣽⣿⡿⠁⠁⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠨⣺⡺⡕⡕⡱⡑⡆⡕⡅⡕⡜⡼⢽⡻⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣼⣳⣫⣾⣵⣗⡵⡱⡡⢣⢑⢕⢜⢕⡝⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⣴⣿⣾⣿⣿⣿⡿⡽⡑⢌⠪⡢⡣⣣⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⡟⡾⣿⢿⢿⢵⣽⣾⣼⣘⢸⢸⣞⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠁⠇⠡⠩⡫⢿⣝⡻⡮⣒⢽⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-—————————————————————————————""")
+        if PGoM<2:
+            print(f"""·······················································································
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+---------------------------------------------------------------------------------------
+                                 BancoFraNiVaEstacion 6                  
+                                    |Posicion Global|
+                            AV. ZARAZA ZAZA 869, BARILOCHE
+                                    DNI:-12345678-
+
+AP: A00000000000012345678                                               Debit FraNiVA
+NRO.COM 9812345678                                                      TERM: 129321843
+NRO.LOTE: 4449                                                          CUPON: 12423
+************5678 * {monedaR}                                            **/**
+02213P786
+Saldo Actual = $ {reporte}
+
+                                    (00) APROBADO
+                                    Copia Cliente
+---------------------------------------------------------------------------------------
+_______________________________________________________________________________________
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+·······················································································"""
+)
+        else:
+            print(f"""·······················································································
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+---------------------------------------------------------------------------------------
+Fecha: 22/06/22                  BancoFraNiVaEstacion 6                  Hora: 18:12:37
+                               !Historial de Movimientos!
+                            AV. ZARAZA ZAZA 869, BARILOCHE
+                                    DNI:-12345678-
+
+AP: A00000000000012345678                                               Debit FraNiVA
+NRO.COM 9812345678                                                      TERM: 129321843
+NRO.LOTE: 4449                                                          CUPON: 12423
+Numero de Trajeta                                                          
+************5678 - 0001                                                           **/**
+Ultimos Movimientos en Caja de Ahorros $
+Cuenta ************5678 {monedaR}
+FECHA 
+22/06    XXXXXXXXXX   $         {reporte[0]}      
+29/05    XXXXXXXXXX   $         {reporte[1]}     
+29/05    XXXXXXXXXX   $         {reporte[2]}   
+29/05    XXXXXXXXXX   $         {reporte[3]}   
+28/05    XXXXXXXXXX   $         {reporte[4]}
+27/05    XXXXXXXXXX   $         {reporte[5]}
+27/05    XXXXXXXXXX   $         {reporte[6]}
+25/05    XXXXXXXXXX   $         {reporte[7]}
+21/05    XXXXXXXXXX   $         {reporte[8]}       
+21/05    XXXXXXXXXX   $         {reporte[9]}
+                                    (00) APROBADO
+                                    Copia Cliente
+---------------------------------------------------------------------------------------
+_______________________________________________________________________________________
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+·······················································································
+            
+            """
+            
     else:
         print("gracias por su consulta")
 
@@ -158,15 +230,23 @@ def montoValido(div,cuenta,sS,sP,op):
 def restarCuenta(div,cuenta,sS,sP,op):
     if div<2:
         if cuenta<2:
-            sP=(sP-op)
+            sP = (sP-op)
+            reporte = sP
+            monedaR = "(AR$)"
         else:
             sS=(sS-op*0.04194)
+            reporte = sS
+            monedaR = "($oles)"
     else:
         if cuenta<2:
             sP=(sP-op/0.04194)
+            reporte = sP
+            monedaR = "(AR$)"
         else:
             sS=(sS-op)
-    nuevosaldo=(sP,sS)
+            reporte = sS
+            monedaR = "($oles)"
+    nuevosaldo=(sP,sS,monedaR,reporte)
     return nuevosaldo
 
 
