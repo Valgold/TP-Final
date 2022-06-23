@@ -1,7 +1,7 @@
 def retiros(div,sS,sP,psw):
     """
-    Realiza un retiro de dinero desde una caja especificada en funcion de un tipo de moneda.
-    Admite hasta dos ingresos de monto invalidos.
+    Menu de retiros.
+    Admite hasta dos ingresos de monto invalidos. La transaccion se cancela si el reingreso de contraseña es invalido.
     Retorna la tupla resultante de la funcion restarCuenta a la funcion principal.
     """
     first=True
@@ -32,7 +32,9 @@ def retiros(div,sS,sP,psw):
 
 def consultas(div,sP,sS,hP,hS):
     """
-    
+    Menu de Consultas.
+    Imprime el historial de movimientos en funcion de la divisa especificada.
+    No retorna un valor en especifico.
     """
     PGoM=int(input("Que desea consultar:\n1.Posicion Global\n2.Movimientos\n"))
     if PGoM<2:
@@ -45,14 +47,14 @@ def consultas(div,sP,sS,hP,hS):
             reporte=sS
     else:
         if div<2:
-            print(f'sus ultimos movimientos en su cuenta en pesos son: {hP}')
+            print(f'Sus ultimos movimientos en su cuenta en pesos son: {hP}')
             reporte=sP
         else:
-            print(f'sus ultimos movimientos en su cuenta en soles son:{hS}')
+            print(f'Sus ultimos movimientos en su cuenta en soles son:{hS}')
             reporte=sS
-    imprimir=int(input("desea imprimir un reporte?\n1. si\n2. no\n"))
+    imprimir=int(input("Desea imprimir un reporte?\n1. si\n2. no\n"))
     if imprimir<2:
-        print("su reporte se esta imprimiendo...")
+        print("Su reporte se esta imprimiendo...")
         print("""———————————No recivo?———————————""")
     else:
         print("gracias por su consulta")
@@ -60,20 +62,21 @@ def consultas(div,sP,sS,hP,hS):
 
 def transferencias(div,cuentaT,sS,sP):
     """
-     
+    Menu de transferencias.
+    Retorna la tupla resultante de la funcion restarCuenta a la funcion principal.
     """
-    destino=int(input("ingrese la cuenta de destino: "))
-    cuenta=int(input("que cuenta desea usar:\n1. pesos\n2. soles\n "))
-    monto=float(input("ingrese el monto a retirar: "))
+    destino=int(input("Ingrese la cuenta de destino: "))
+    cuenta=int(input("Que cuenta desea usar:\n1. pesos\n2. soles\n "))
+    monto=float(input("Ungrese el monto a retirar: "))
     valid=montoValido(div,cuenta,sS,sP,monto)
     if valid:
         sP,sS=restarCuenta(div,cuenta,sS,sP,monto)
         if destino==cuentaT:
-            print("transaccion realizada con exito")
+            print("Transaccion realizada con exito")
         else: 
-            print("transaccion fallida, su dinero sera reintegrado pasados 3 dias habiles")
+            print("Transaccion fallida, su dinero sera reintegrado pasados 3 dias habiles")
     else: 
-        print("no cuenta con fondos suficientes en la cuenta seleccionada, vuela a intentarlo")
+        print("No cuenta con fondos suficientes en la cuenta seleccionada, vuela a intentarlo")
     return sP,sS
 
 def montoValido(div,cuenta,sS,sP,op):
@@ -104,7 +107,7 @@ def restarCuenta(div,cuenta,sS,sP,op):
                 2 = Cuenta en Soles
         sS = Saldo de la cuenta en soles
         sP = Saldo de la cuenta en Pesos
-        op = Saldo a restar
+        op = Saldo a extraer
     Retorna una tupla indicando los valores de saldo actualizados luego de la operacion.
     
     """
