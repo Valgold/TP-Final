@@ -198,8 +198,15 @@ def transferencias(div,cuentaT,sS,sP):
 
 def montoValido(div,cuenta,sS,sP,op,):
     """
-    montovalido(divisa, numero de cuenta, saldo cuenta 1, saldo cuenta 2, operacion)
-    Verifica que la cuenta espeficicada tenga saldo suficiente dependiendo de la operacion:
+    Verifica que la cuenta espeficicada tenga saldo suficiente dependiendo de la operacion.
+        div:    1 = Pesos
+                2 = Soles
+        cuenta:
+                1 = Cuenta en Pesos
+                2 = Cuenta en Soles
+        sS = Saldo de la cuenta en soles
+        sP = Saldo de la cuenta en Pesos
+        op = Saldo a extraer
     Retorna:
         True si tiene saldo suficiente
         False no tiene saldo suficiente
@@ -216,6 +223,18 @@ def montoValido(div,cuenta,sS,sP,op,):
             v = (sS-op) >= 0
     return v
 def restarCuenta(div,cuenta,sS,sP,op):
+    """
+    Extrae una cantidad determinada de dinero en funcion de una divisa especificada.
+        div:    1 = Pesos
+                2 = Soles
+        cuenta:
+                1 = Cuenta en Pesos
+                2 = Cuenta en Soles
+        sS = Saldo de la cuenta en soles
+        sP = Saldo de la cuenta en Pesos
+        op = Saldo a extraer
+    Retorna una tupla indicando los valores de saldo actualizados luego de la operacion.
+    """
     if div<2:
         if cuenta<2:
             sP = (sP-op)
@@ -239,6 +258,10 @@ def restarCuenta(div,cuenta,sS,sP,op):
     return nuevosaldo
 
 def actualizar_listas(historialP,historialS,divisa,valor_nuevo):
+    """
+    Actualiza el historial de movimientos a los 10 mas recientes, agregando el ultimo movimiento correspondiente a la lista y eliminando el movimiento mas antiguo.
+    Retorna una tupla con los historiales actualizados.
+    """
     transicion = []
     if divisa < 2:
         for i in range(len(historialP)-1):
@@ -253,6 +276,9 @@ def actualizar_listas(historialP,historialS,divisa,valor_nuevo):
     return (historialP,historialS)
 
 def imprimir_historial(lista):
+    """
+    Transcribe el historial en forma de columna.
+    """
     x=0
     while x<len(lista):
         print(lista[x])
