@@ -59,13 +59,13 @@ def main():
     destino = 1234
    
 """"
-se declaran todas las variables que seran necesarias para la correcta ejecucion del cajero
+Se declaran todas las variables que seran necesarias para la correcta ejecucion del cajero.
 """"
 
     while (tries<3):
         """
-        el programa se ejecuta tantas veces como sea necesario hasta que
-        se ingresen mal las credenciales de acceso repetidas veces
+        El programa se ejecuta tantas veces como sea necesario hasta que
+        se ingresen erroneamente 3 las credenciales de acceso.
         """
         menu = 0
         
@@ -74,12 +74,12 @@ se declaran todas las variables que seran necesarias para la correcta ejecucion 
             ps = int(input("ingrese su contraseña: ")) # aqui se solicita su contraseña
             if(ps == pswd):
          """
-         esta parte del codigo seria el equivalente a un log in del banco
+         Esta parte del codigo seria el equivalente a un inicio de sesion del banco.
          """
              
                 divisa = int(input("en que tipo de moneda desea operar:\n1.pesos\n2.soles\n"))
                 """
-                se solicita la divisa con la que se va a operar en esta sesion
+                Se solicita la divisa con la que se va a operar en esta sesion.
                 """
                 
                 while menu < 4:
@@ -93,28 +93,27 @@ se declaran todas las variables que seran necesarias para la correcta ejecucion 
                     elif menu==3:
                         saldoP,saldoS=transferencias(divisa,destino,saldoS,saldoP)
              """
-             esta parte del codigo es el menú de seleccion de operaciones,
-             se encarga de llamar a las funciones correspondientes segun el input del usuario
+             Esta parte del codigo es el menú de seleccion de operaciones,
+             se encarga de llamar a las funciones correspondientes segun el input del usuario.
              """
 
             else:
                 tries +=1
                 print(f" contraseña invalida, le quedan {3-tries} intentos") 
                 """
-                cuenta los ingresos erroneos de la contraseña y/o uduario
+                Cuenta los ingresos erroneos de la contraseña y/o usuario.
                 """
                 
         else:
             tries +=1
             print(f"numero de usuario invalido, le quedan {3-tries} intentos") 
             """
-            cuenta los ingresos erroneos de la contraseña /o del usuario
+            Cuenta los ingresos erroneos de la contraseña y/o del usuario.
             """
     print("ha superado la cantidad maxima de intentos: su tarjeta ha sido retenida")
-    
     """
-    en caso de superar la cantidad maxima de intentos se detiene el programa con un mensaje
-    que advierte que se retuvo la tarjeta
+    En caso de superar la cantidad maxima de intentos se detiene el programa con un mensaje
+    que advierte que se retuvo la tarjeta.
     """
 
 
