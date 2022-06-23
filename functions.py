@@ -133,7 +133,7 @@ def transferencias(div,cuentaT,sS,sP):
             print("transaccion fallida, su dinero sera reintegrado pasados 3 dias habiles")
     else: 
         print("no cuenta con fondos suficientes en la cuenta seleccionada, vuela a intentarlo")
-    nuevosaldo=[sP,sS]
+    nuevosaldo = (sP,sS)
     return nuevosaldo
 
 def montoValido(div,cuenta,sS,sP,op):
@@ -153,7 +153,7 @@ def montoValido(div,cuenta,sS,sP,op):
         if cuenta<2:
             v=(sP-op/0.04194)>=0
         else:
-            v=(sS-op)>=0
+            v = (sS-op) >= 0
     return v
 def restarCuenta(div,cuenta,sS,sP,op):
     if div<2:
@@ -166,7 +166,7 @@ def restarCuenta(div,cuenta,sS,sP,op):
             sP=(sP-op/0.04194)
         else:
             sS=(sS-op)
-    nuevosaldo=[sP,sS]
+    nuevosaldo=(sP,sS)
     return nuevosaldo
 
 
