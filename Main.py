@@ -43,7 +43,7 @@ Cuenta de destino en la cual se hara la transferencia: 98765
 Saldo de la cuenta: en Pesos Argentinos 85.000 (en Soles Peruanos 3.564)
 Esta informacion se mantendra constante (a excepcion del saldo) durante la ejecucion del algoritmo.
 """
-# Funciones // def - while - if - return - print - input - listas
+# Funciones // def - while - if - return - print - input 
 
 from functions import *
 def main():
