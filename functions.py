@@ -37,9 +37,9 @@ Esta informacion se mantendra constante (a excepcion del saldo) durante la ejecu
 
 def retiros(div,sS,sP,psw):
     """
-    Realiza un retiro de dinero desde una caja especificada en funcion de un tipo de moneda.
-    Admite hasta dos ingresos de monto invalidos.
-    Retorna una tupla con los valores de saldo posteriores al procesamiento.
+    Menu de retiros.
+    Admite hasta dos ingresos de monto invalidos. La transaccion se cancela si el reingreso de contraseña es invalido.
+    Retorna la tupla resultante de la funcion restarCuenta a la funcion principal.
     """
     first=True
     reingreso=0
@@ -93,7 +93,9 @@ ________________________________________________________________________________
 
 def consultas(div,sP,sS,hP,hS):
     """
-    
+    Menu de Consultas.
+    Imprime el historial de movimientos en funcion de la divisa especificada.
+    No retorna un valor en especifico.
     """
     PGoM=int(input("que desea consultar:\n1.Posicion Global\n2.Movimientos\n"))
     if PGoM<2:
@@ -180,6 +182,10 @@ ________________________________________________________________________________
         print("gracias por su consulta")
 
 def transferencias(div,cuentaT,sS,sP):
+    """
+    Menu de transferencias.
+    Retorna la tupla resultante de la funcion restarCuenta a la funcion principal.
+    """
     destino=int(input("ingrese la cuenta de destino: "))
     cuenta=int(input("que cuenta desea usar:\n1. pesos\n2. soles\n "))
     monto=float(input("ingrese el monto a retirar: "))
