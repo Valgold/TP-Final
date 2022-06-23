@@ -89,9 +89,12 @@ Se declaran todas las variables que seran necesarias para la correcta ejecucion 
                     if menu == 1:
                         consultas(divisa,saldoP,saldoS,historialP,historialS)
                     elif menu == 2:
-                        saldoP,saldoS=retiros(divisa,saldoS,saldoP,pswd)
+                        saldoP,saldoS,nuevo,cuenta=retiros(divisa,saldoS,saldoP,pswd)
+                        historialP,historialS=actualizar_listas(historialP, historialS,cuenta,nuevo)
                     elif menu==3:
-                        saldoP,saldoS=transferencias(divisa,destino,saldoS,saldoP)
+                        saldoP,saldoS,nuevo,cuenta=transferencias(divisa,destino,saldoS,saldoP)
+                        historialP,historialS=actualizar_listas(historialP, historialS,cuenta,nuevo)
+                        
              """
              Esta parte del codigo es el menú de seleccion de operaciones,
              se encarga de llamar a las funciones correspondientes segun el input del usuario.
